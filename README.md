@@ -1,6 +1,6 @@
-# 📊 Módulo de Monitoreo para CloudFront en AWS
+# 📊 Módulo de Monitoreo para WAF en AWS
 
-Este módulo de **Terraform** permite configurar **alertas de monitoreo** en **Amazon CloudWatch** para de CloudFront. Las alertas supervisan errores del servidor, latencia de origen y errores en funciones Lambda@Edge, permitiendo detección temprana de problemas y acción preventiva.
+Este módulo de **Terraform** permite configurar **alertas de monitoreo** en **Amazon CloudWatch** para de WAF. Las alertas supervisan errores del servidor, latencia de origen y errores en funciones Lambda@Edge, permitiendo detección temprana de problemas y acción preventiva.
 
 ---
 
@@ -26,26 +26,26 @@ Este módulo de **Terraform** permite configurar **alertas de monitoreo** en **A
 
 ### Alarmas configuradas:
 
-- **5xxErrorRate** – Porcentaje de errores 5xx de servidor:
+- **AllowedRequests** – Suma de solicitudes Permitidas:
 
 ```hcl
-resource "aws_cloudwatch_metric_alarm" "cloudfront_5xx_error_rate" {
+resource "aws_waf_metric_alarm" "waf_allowedrequests" {
   ...
 }
 ```
 
-- **OriginLatency** – Tiempo de respuesta desde el origen:
+- **BlockedRequests** – Suma de solicitudes Bloquedas:
 
 ```hcl
-resource "aws_cloudwatch_metric_alarm" "cloudfront_origin_latency" {
+resource "aws_waf_metric_alarm" "waf_blockedrequests" {
   ...
 }
 ```
 
-- **FunctionExecutionErrors** – Errores en ejecución de funciones Lambda@Edge:
+- **CaptchaRequests** – Suma de solicitudes de Captcha:
 
 ```hcl
-resource "aws_cloudwatch_metric_alarm" "cloudfront_function_execution_errors" {
+resource "aws_waf_metric_alarm" "waf_captcharequests" {
   ...
 }
 ```
@@ -58,15 +58,15 @@ resource "aws_cloudwatch_metric_alarm" "cloudfront_function_execution_errors" {
 
 | Variable                                                  | Valor        |
 | --------------------------------------------------------- | ------------ |
-| cloudfront_5xx_error_rate_evaluation_periods              | 1            |
-| cloudfront_5xx_error_rate_period                          | 300 segundos |
-| cloudfront_5xx_error_rate_threshold                       | 10 (10%)     |
-| cloudfront_origin_latency_evaluation_periods              | 1            |
-| cloudfront_origin_latency_period                          | 300 segundos |
-| cloudfront_origin_latency_threshold                       | 80           |
-| cloudfront_function_execution_errors_evaluation_periods   | 1            |
-| cloudfront_function_execution_errors_period               | 300 segundos |
-| cloudfront_function_execution_errors_threshold            | 0            |
+| waf_allowedrequests_error_evaluation_periods              | 1            |
+| waf_allowedrequests_error_events_period                   | 300 segundos |
+| waf_allowedrequests_error_threshold                       | 10 (10%)     |
+| waf_blockedrequests_error_evaluation_periods              | 1            |
+| waf_blockedrequests_error_events_period                   | 300 segundos |
+| waf_blockedrequests_error_threshold                       | 80           |
+| waf_captcharequests_error_evaluation_periods              | 1            |
+| waf_captcharequests_error_events_period                   | 300 segundos |
+| waf_captcharequests_error_threshold                       | 0            |
 
 
 ---
@@ -91,8 +91,8 @@ resource "aws_cloudwatch_metric_alarm" "cloudfront_function_execution_errors" {
 ## 🧪 Modo de uso
 
 ```hcl
-module "cloudfront_monitoring" {
-  source                  = "git::git@github.com:bocc-principal/Infra_AWS_Module_Monitoring_CloudFront.git//cloudfront?ref=main"
+module "waf_monitoring" {
+  source                  = "git::git@github.com:bocc-principal/Infra_AWS_Module_Monitoring_WAF.git//WAF?ref=main"
   cloudfront_distribution = var.cloudfront_distribution
   project                  = var.project
   bdo_name_service         = var.bdo_name_service
@@ -113,6 +113,6 @@ Una vez creado el SNS Topic se debe dejar encryptado con su respectivo KMS
 
 ## 📝 Resource
 
-# https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-metrics.html
+# https://docs.aws.amazon.com/es_es/waf/latest/developerguide/waf-metrics.html
 
-# Infra_AWS_Module_Monitoring_CloudFront
+# Infra_AWS_Module_Monitoring_WAF

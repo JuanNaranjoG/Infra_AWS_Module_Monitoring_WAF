@@ -9,7 +9,7 @@ resource "aws_waf_metric_alarm" "waf_allowedrequests" {
   alarm_name          = "${var.project}-${var.bdo_name_service}-AllowedRequestsError-${var.bdo_environment}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = var.waf_allowedrequests_error_evaluation_periods
-  metric_name         = "AllowedRequestsErrorRate"
+  metric_name         = "AllowedRequests"
   namespace           = "AWS/WAF"
   period              = var.waf_allowedrequests_error_events_period
   statistic           = "Sum"
@@ -33,7 +33,7 @@ resource "aws_waf_metric_alarm" "waf_blockedrequests" {
   alarm_name          = "${var.project}-${var.bdo_name_service}-BlockedRequestsError-${var.bdo_environment}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = var.waf_blockedrequests_error_evaluation_periods
-  metric_name         = "BlockedRequestsErrorRate"
+  metric_name         = "BlockedRequests"
   namespace           = "AWS/WAF"
   period              = var.waf_blockedrequests_error_events_period
   statistic           = "Sum"
@@ -57,7 +57,7 @@ resource "aws_waf_metric_alarm" "waf_captcharequests" {
   alarm_name          = "${var.project}-${var.bdo_name_service}-CaptchaRequestsError-${var.bdo_environment}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = var.waf_captcharequests_error_evaluation_periods
-  metric_name         = "CaptchaRequestsErrorRate"
+  metric_name         = "CaptchaRequests"
   namespace           = "AWS/WAF"
   period              = var.waf_captcharequests_error_events_period
   statistic           = "Sum"

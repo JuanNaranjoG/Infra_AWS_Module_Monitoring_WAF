@@ -71,7 +71,7 @@ variable "waf_allowedrequests_error_events_period" {
 
 variable "waf_allowedrequests_error_threshold" {
   type    = number
-  default = 5 # Equivale al 5% de tasa de error durante los periodos validados
+  default = 10000 # Equivale al umbral de 10,000 solicitudes; ajustable según el tráfico esperado.
 }
 
 ## Blocked Requests
@@ -88,14 +88,14 @@ variable "waf_blockedrequests_error_events_period" {
 
 variable "waf_blockedrequests_error_threshold" {
   type    = number
-  default = 5 # Equivale al 5% de tasa de error durante los periodos validados
+  default = 500 # Equivale a detectar actividad maliciosa o tráfico no deseado que está siendo bloqueado por las reglas de WAF
 }
 
 ## Captcha Requests
 
 variable "waf_captcharequests_error_evaluation_periods" {
   type    = number
-  default = 3 # Periodos por cada evaluacion antes de generar la alarma 3 * 120 = 360
+  default = 2 # Periodos por cada evaluacion antes de generar la alarma 2 * 120 = 240
 }
 
 variable "waf_captcharequests_error_events_period" {
@@ -105,5 +105,5 @@ variable "waf_captcharequests_error_events_period" {
 
 variable "waf_captcharequests_error_threshold" {
   type    = number
-  default = 5 # Equivale al 5% de tasa de error durante los periodos validados
+  default = 100 # Equivale Umbral de 100 solicitudes
 }
