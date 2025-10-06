@@ -4,7 +4,7 @@
 
 # Alarmas de Allowed Requests
 
-resource "aws_waf_metric_alarm" "waf_allowedrequests" {
+resource "aws_cloudwatch_metric_alarm" "waf_allowedrequests" {
 
   alarm_name          = "${var.project}-${var.bdo_name_service}-AllowedRequestsError-${var.bdo_environment}"
   comparison_operator = "GreaterThanThreshold"
@@ -28,7 +28,7 @@ resource "aws_waf_metric_alarm" "waf_allowedrequests" {
 
 # Alarmas de Blocked Requests
 
-resource "aws_waf_metric_alarm" "waf_blockedrequests" {
+resource "aws_cloudwatch_metric_alarm" "waf_blockedrequests" {
 
   alarm_name          = "${var.project}-${var.bdo_name_service}-BlockedRequestsError-${var.bdo_environment}"
   comparison_operator = "GreaterThanThreshold"
@@ -52,7 +52,7 @@ resource "aws_waf_metric_alarm" "waf_blockedrequests" {
 
 # Alarmas de Captcha Requests
 
-resource "aws_waf_metric_alarm" "waf_captcharequests" {
+resource "aws_cloudwatch_metric_alarm" "waf_captcharequests" {
 
   alarm_name          = "${var.project}-${var.bdo_name_service}-CaptchaRequestsError-${var.bdo_environment}"
   comparison_operator = "GreaterThanThreshold"
